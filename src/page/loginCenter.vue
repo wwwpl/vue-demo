@@ -30,8 +30,9 @@
 <script>
 export default {
   data() {
+    //表单验证
     let checkphone = (rule, value, callback) => {
-      if (!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/ .test(value)) {
+      if (!/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/.test(value)) {
         return callback(new Error("请输入正确邮箱账号"));
       } else {
         callback();
@@ -55,7 +56,7 @@ export default {
       toLogin (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.login(this.loginForm)
+          alert("登录成功")
         } else {
           return false
         }
