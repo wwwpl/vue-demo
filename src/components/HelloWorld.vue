@@ -1,9 +1,7 @@
 <template >
-
   <div>
     <el-button type="primary" @click="clickFn">跳转</el-button>
   </div>
-
 </template>
 
 <script>

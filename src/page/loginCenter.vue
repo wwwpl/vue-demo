@@ -1,9 +1,13 @@
 <template>
-  <div>
-    <el-row type="flex" justify="center" >
-      <el-col :span=5 >
+<el-container>
+    <el-header class="head" height="80px">
+      <h2>SSO统一登录平台</h2>
+    </el-header>
+    <el-main>
+      <el-row type="flex" justify="center" >
+      <el-col :span=6 >
         <el-card class="login-card">
-          <div slot="header" class="clearfix">
+          <div slot="header" class="clearfix" align="center">
             <span class="sso-title">SSO统一登录平台</span>
           </div>
           <el-form ref="loginForm" :model="loginForm" :rules="loginFormRules">
@@ -11,24 +15,28 @@
               <el-input v-model="loginForm.email" placeholder="请输入邮箱">
               </el-input>
             </el-form-item>
-            <el-form-item prop="code">
-              <el-input v-model="loginForm.code" type="password" placeholder="请输入密码">
+            <el-form-item prop="password">
+              <el-input v-model="loginForm.password" type="password" placeholder="请输入密码">
                 </el-input>
             </el-form-item>
-            <el-form-item>
+            <el-form-item align="center">
                <el-button type="primary"
-               @click="toLogin('loginForm')">登录</el-button>
+               class="login-button"
+               @click="sendRequest('loginForm')">登录</el-button>
                <el-button class="register-button">注册</el-button>
             </el-form-item>
           </el-form>
         </el-card>
       </el-col>
     </el-row>
-  </div>
+  </el-main>
+  </el-container>
 </template>
 
 <script>
+import { login } from "@/api/user";
 export default {
+  name: "login",
   data() {
     //表单验证
     let checkphone = (rule, value, callback) => {
@@ -40,33 +48,37 @@ export default {
     };
     return {
       loginForm: {
-        email: "", // 电话号码
-        code: "" // 验证码
+        email: "673391104@qq.com", // 邮箱账号
+        password: "123" // 密码
       },
       loginFormRules: {
         email: [
           { required: true, message: "请输入邮箱账号", trigger: "blur" },
           { validator: checkphone, trigger: "blur" }
         ],
-        code: [{ required: true, message: "请输入密码", trigger: "blur" }]
+        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
       }
     };
   },
-  methods:{
-      toLogin (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert("登录成功")
-        } else {
-          return false
-        }
-      })
+  methods: {
+    async sendRequest() {
+      let res = await login(this.loginForm);
+      if (res) {
+        this.$message({
+          message: res,
+          type: "success"
+        });
+        this.$router.push({path: '/main'});
+      }
     }
   }
 };
 </script>
 
 <style scoped>
+.el-card__header {
+  align-content: center;
+}
 .login-card {
   width: 400px;
   height: 300px;
@@ -76,8 +88,16 @@ export default {
   font-family: Helvetica;
   font-weight: bold;
 }
-.register-button {
-  margin-left: 80px;
+.login-button {
+  margin-right: 20px;
+}
+.el-header h2 {
+  margin-left: 100px;
+}
+.head {
+  background-color: #409eff;
+  color: white;
+  height: 200px;
 }
 </style>
 
