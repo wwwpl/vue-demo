@@ -1,7 +1,9 @@
 <template>
 <el-container>
     <el-header class="head" height="80px">
-      <h2>SSO统一登录平台</h2>
+      <div class="news_title" >
+        SSO后台管理
+      </div>
     </el-header>
     <el-main>
       <el-row type="flex" justify="center" >
@@ -63,12 +65,12 @@ export default {
   methods: {
     async sendRequest() {
       let res = await login(this.loginForm);
+      this.$router.push({path: '/mainFirstPage'});
       if (res) {
         this.$message({
           message: res,
           type: "success"
         });
-        this.$router.push({path: '/main'});
       }
     }
   }
@@ -98,6 +100,17 @@ export default {
   background-color: #409eff;
   color: white;
   height: 200px;
+}
+.news_title {
+  background: #409eff;
+  height: 100%;
+  line-height: 75px;
+  font-size: 25px;
+  color: #fff;
+  text-align: center;
+  width: 200px;
+  border-right: solid 1px white;
+  float:left;
 }
 </style>
 

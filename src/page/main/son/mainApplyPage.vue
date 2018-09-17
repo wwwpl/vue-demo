@@ -1,5 +1,5 @@
 <template>
-  <div><h1>测试首页</h1></div>
+  <div><h1>测试 应用</h1></div>
 </template>
 
 <script>

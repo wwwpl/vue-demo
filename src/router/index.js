@@ -3,8 +3,9 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import loginCenter from '@/page/loginCenter'
 import main from '@/page/main/main'
-
-const mainFirstPage = r => require.ensure([], () => r(require('@/page/main/mainFirstPage')), 'mainFirstPage')
+import mainFirstPage from '@/page/main/son/mainFirstPage'
+import mainApplyPage from '@/page/main/son/mainApplyPage'
+import mainUserPage from '@/page/main/son/mainUserPage'
 
 Vue.use(Router)
 
@@ -23,12 +24,43 @@ export default new Router({
     {
       path: '/main',
       name: 'main',
-      component: main
+      component: main,
+      children: [
+        {
+          path: '/mainFirstPage',
+          name: 'mainFirstPage',
+          component: mainFirstPage,
+          meta: {
+            title: '首页'
+          }
+        }
+      ]
     },
     {
-      path: '/mainFirstPage',
-      name: 'mainFirstPage',
-      component: mainFirstPage
+      path: '/main',
+      name: 'main',
+      component: main,
+      meta: {
+        title: '数据列表'
+      },
+      children: [
+        {
+          path: '/mainUserPage',
+          name: 'mainUserPage',
+          component: mainUserPage,
+          meta: {
+            title: '用户管理'
+          }
+        },
+        {
+          path: '/mainApplyPage',
+          name: 'mainApplyPage',
+          component: mainApplyPage,
+          meta: {
+            title: '应用管理'
+          }
+        }
+      ]
     }
   ]
 })
