@@ -10,14 +10,19 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // 引入VUEX
 import store from './store/index.js'
+
+import getUrl from './tools/getUrlParams'
 // 开发模式
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 /* eslint-disable no-new */
+Vue.prototype.$getUrl = getUrl
 new Vue({
   el: '#app',
   router,
   store,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })

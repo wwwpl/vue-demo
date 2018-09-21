@@ -6,7 +6,8 @@ const service = axios.create({
   // 这里baseurl就是刚开始配置的开发环境和线上环境地址，webpack会自动读取无需手动再改
   baseURL: process.env.BASE_URL, // baseurl
   timeout: 20000, // 请求超时
-  headers: {'Content-Type': 'application/json'}
+  headers: {'Content-Type': 'application/json'},
+  withCredentials: true
 })
 
 // request拦截
@@ -31,9 +32,8 @@ service.interceptors.response.use(
   response => {
     let res = response.data
     let { msg, code } = res
-    // console.log(response)
     if (code === '1000') {
-      return msg
+      window.open(msg, '_blank')
     } else {
       // 这里吧错误响应不再返回到页面，直接统一处理掉，只有正确的返回才会被接收并做下一步处理
       Message.error({
@@ -48,7 +48,7 @@ service.interceptors.response.use(
     // 这里处理服务端错误
     console.log('err' + err) // for debug
     Message.warning({
-      message: '网络连接失败，请重试~'
+      message: '服务端错误~'
     })
   }
 )

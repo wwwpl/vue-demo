@@ -37,6 +37,7 @@
 
 <script>
 import { login } from "@/api/user";
+
 export default {
   name: "login",
   data() {
@@ -51,7 +52,8 @@ export default {
     return {
       loginForm: {
         email: "673391104@qq.com", // 邮箱账号
-        password: "123" // 密码
+        password: "123", // 密码,
+        redirectUrl: this.$getUrl.getUrlKey("redirectUrl")
       },
       loginFormRules: {
         email: [
@@ -65,13 +67,13 @@ export default {
   methods: {
     async sendRequest() {
       let res = await login(this.loginForm);
-      this.$router.push({path: '/mainFirstPage'});
-      if (res) {
-        this.$message({
-          message: res,
-          type: "success"
-        });
-      }
+      // this.$router.push({path: '/mainFirstPage'});
+      // if (res) {
+      //   this.$message({
+      //     message: res,
+      //     type: "success"
+      //   });
+      // }
     }
   }
 };
